@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+#script that displays the content of the current directory in a certain format
+for file in $list
+do
+    find "$file" | cut -d- -f2
+done
