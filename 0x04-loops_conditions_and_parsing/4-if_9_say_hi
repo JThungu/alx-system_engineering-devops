@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 #This script that displays Best School 10 times, but for the 9th iteration, displays Best School and then Hi on a new line.
+n=1
+
 do
     echo "Best School"
     if [ $n -eq 9 ]
