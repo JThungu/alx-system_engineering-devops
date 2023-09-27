@@ -1,6 +1,6 @@
 0x0C. Web server
 ================
-- Joseph Thungu
+- By Joseph Thungu
 
 Concepts
 --------
