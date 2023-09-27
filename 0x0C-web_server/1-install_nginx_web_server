@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+# Update the package list to make sure you have the latest information
+# Install nginx
+# Create a simple HTML page with "Hello World!"
+sudo apt-get  updated -y
+sudo apt-get install nginx -y
+
+# Allow incoming traffic on port 80 (HTTP)
+sudo ufw allow 80/tcp
+
+# permit nginx on firewall
+ufw allow enable
+
+# Deeloping new index
+echo "Hello World!" > /usr/share/nginx/html/index.html
+
+# Starting nginx
+sudo service nginx start
