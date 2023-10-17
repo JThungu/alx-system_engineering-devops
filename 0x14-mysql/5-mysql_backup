@@ -1,0 +1,41 @@
+#!/bin/bash
+
+# Prompt the user for the MySQL root password
+read -s -p "Enter MySQL Root Password: " MYSQL_ROOT_PASSWORD
+echo  # Add a newline for better output formatting
+
+# Check if the password is empty
+if [ -z "$MYSQL_ROOT_PASSWORD" ]; then
+  echo "MySQL root password cannot be empty."
+  exit 1
+fi
+
+# Get the current date in the specified format
+DATE=$(date +'%d-%m-%Y')
+
+# Directory to store backups
+BACKUP_DIR="/path/to/backup/directory"
+
+# MySQL dump file name
+DUMP_FILE="$BACKUP_DIR/backup.sql"
+
+# Compressed archive name
+ARCHIVE_NAME="$BACKUP_DIR/$DATE.tar.gz"
+
+# Dump all MySQL databases
+mysqldump -u root -p"$MYSQL_ROOT_PASSWORD" --all-databases > "$DUMP_FILE"
+
+# Check if the dump was successful
+if [ $? -eq 0 ]; then
+  # Create a tar.gz archive
+  tar -czvf "$ARCHIVE_NAME" -C "$BACKUP_DIR" backup.sql
+
+  # Check if the archive was created successfully
+  if [ $? -eq 0 ]; then
+    echo "MySQL dump and compression completed. Archive saved as $ARCHIVE_NAME"
+  else
+    echo "Error creating the archive."
+  fi
+else
+  echo "Error during MySQL dump."
+fi
