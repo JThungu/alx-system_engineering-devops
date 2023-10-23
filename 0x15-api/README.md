@@ -145,7 +145,6 @@ sylvain@ubuntu$ cat 2.json
 
 mandatory
 
-Score: 0.00% (Checks completed: 0.00%)
 
 Using what you did in the task #0, extend your Python script to export data in the JSON format.
 
