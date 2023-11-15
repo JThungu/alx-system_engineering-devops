@@ -1,0 +1,54 @@
+n most cases, administrators will remove this file from sites-enabled/ and
+# leave it as reference inside of sites-available where it will continue to be
+# updated by the nginx packaging team.
+#
+# This file will automatically load configuration files provided by other
+# applications, such as Drupal or Wordpress. These applications will be made
+# available underneath a path with that package name, such as /drupal8.
+#
+# Please see /usr/share/doc/nginx-doc/examples/ for more detailed examples.
+##
+
+# Default server configuration
+#
+server {
+        listen 80 default_server;
+        listen [::]:80 default_server;
+
+        # Use IP of server as domain name
+        server_name 54.234.94.20
+
+        # Customize HTTP response header
+        add_header X-Served-By 325226-web-01;
+
+        # Serve /airbnb-onepage/ route AirBnB_clone_v3
+        location = /airbnb-onepage/ {
+                proxy_pass http://127.0.0.1:5000/airbnb-onepage/;
+        }
+
+        # Serve /number_odd_or_even/ route on AirBnB_clone_v2
+        location ~ /airbnb-dynamic/number_odd_or_even/(\d+)$ {
+                proxy_pass http://127.0.0.1:5001/number_odd_or_even/$1;
+        }
+
+        # Serve AirBnB_clone_v3 API
+        location /api {
+                proxy_pass http://127.0.0.1:5002/api;
+        }
+
+        # Configure /2-hbnb route of AirBnB_clone_v4 as root location
+        location / {
+                proxy_pass http://127.0.0.1:5003/2-hbnb;
+        }
+
+        # Serve static content for AirBnB_clone_v4
+        location /static {
+                alias web_dynamic/static/;
+        }
+
+        error_page 404 /404.html;
+        location /404 {
+                root /var/www/html;
+                internal;
+        }
+}
